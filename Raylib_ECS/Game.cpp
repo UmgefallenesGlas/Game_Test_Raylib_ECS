@@ -8,13 +8,14 @@ Manager manager;
 Collision collision;
 Camera2D Game::camera;
 
+#pragma region Objects
 auto& coin1(manager.addEntity());
 auto& coin2(manager.addEntity());
 auto& coin3(manager.addEntity());
 auto& coin4(manager.addEntity());
 
 auto& player(manager.addEntity());
-
+#pragma endregion
 
 Vector2 inputKeys;
 
@@ -25,7 +26,7 @@ float speed = 400.f;
 
 void HandlePlayer() {
 	Vector2 newPosOrigin = player.getComponent<TransformComponent>().position;
-#pragma region InputHandling
+	#pragma region InputHandling
 	inputKeys = { (float)(-IsKeyDown(KEY_A) + IsKeyDown(KEY_D)),
 				(float)(-IsKeyDown(KEY_W) + IsKeyDown(KEY_S)) };
 
@@ -85,7 +86,7 @@ void HandlePlayer() {
 	newPosOrigin = Vector2Add(newPosOrigin, Vector2Scale(inputKeys, speed * GetFrameTime()));
 
 #pragma endregion
-#pragma region Collision
+	#pragma region Collision
 
 
 	//collision.PlayerCollision(newPosOrigin);
@@ -131,9 +132,6 @@ void HandlePlayer() {
 
 
 #pragma endregion
-
-
-
 	player.getComponent<TransformComponent>().position = newPosOrigin;
 }
 
@@ -142,21 +140,17 @@ Game::Game() { std::cout << "START!\n"; }
 Game::~Game() { }
 
 void Game::Init(){
-
-	
-	
-
 	#pragma region Objects
 	coin1.addComponent<TransformComponent>(96, 128, 32, 32, 2, 0);
 	coin1.addComponent<SpriteComponent>("assets/water.png");
 	coin1.addGroup(groupMap);
 
-	coin2.addComponent<TransformComponent>(256, 128, 32, 64, 2, 0);
-	coin2.addComponent<SpriteComponent>("assets/water.png");
+	coin2.addComponent<TransformComponent>(256, 128, 32, 32, 2, 0);
+	coin2.addComponent<SpriteComponent>("assets/dirt.png");
 	coin2.addGroup(groupMap);
 
-	coin3.addComponent<TransformComponent>(352, 128, 32, 32, 2, 0);
-	coin3.addComponent<SpriteComponent>("assets/water.png");
+	coin3.addComponent<TransformComponent>(352-32, 128, 32, 32, 2, 0);
+	coin3.addComponent<SpriteComponent>("assets/grass.png");
 	coin3.addGroup(groupMap);
 
 	coin4.addComponent<TransformComponent>(480, 128, 32, 32, 2, 0);
@@ -191,7 +185,6 @@ void Game::Init(){
 	playerDir = playerLookDir(down);
 #pragma endregion
 	Game::camera.zoom = 1;
-	
 }
 
 void Game::Update(){
@@ -201,12 +194,10 @@ void Game::Update(){
 }
 
 void Game::Draw(){
-	
 	ClearBackground(WHITE);
 	BeginMode2D(Game::camera);
 	manager.draw();
 	EndMode2D();
-
 	//|--------UI | UX Here--------|
 	DrawFPS(0, 0);
 	//|----------------------------|
