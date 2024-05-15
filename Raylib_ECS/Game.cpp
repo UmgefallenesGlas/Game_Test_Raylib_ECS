@@ -161,6 +161,7 @@ void Game::Init(){
 	player.addComponent<TransformComponent>(300, 300, 32, 32, 2, 0);
 	player.addComponent<AnimatedSpriteComponent>("assets/Char_Main_file.png");
 	player.addGroup(groupPlayer);
+	//player.addGroup(groupColliders);
 #pragma endregion
 	#pragma region Animation
 	Animation idle_down = Animation(0, 1, 5);
