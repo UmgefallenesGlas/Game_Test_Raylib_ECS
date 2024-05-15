@@ -1,1 +1,2 @@
-It's my first Github commit, sorry if i copied any code that isn't mine.
+A small Entity Component System for Raylib
+(Still Working on it)
