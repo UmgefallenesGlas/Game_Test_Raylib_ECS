@@ -1,0 +1,6 @@
+x64/
+Raylib_ECS.sln
+Raylib_ECS/Raylib_ECS.vcxproj
+Raylib_ECS/Raylib_ECS.vcxproj.filters
+Raylib_ECS/Raylib_ECS.vcxproj.user
+Raylib_ECS/.vs/
