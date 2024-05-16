@@ -3,18 +3,18 @@
 #include <raymath.h>
 #include "ECS/Collision.h"
 
-Manager manager; 
+Manager Game::manager;
 
 Collision collision;
 Camera2D Game::camera;
 
 #pragma region Objects
-auto& coin1(manager.addEntity());
-auto& coin2(manager.addEntity());
-auto& coin3(manager.addEntity());
-auto& coin4(manager.addEntity());
+auto& coin1(Game::manager.addEntity());
+auto& coin2(Game::manager.addEntity());
+auto& coin3(Game::manager.addEntity());
+auto& coin4(Game::manager.addEntity());
 
-auto& player(manager.addEntity());
+auto& player(Game::manager.addEntity());
 #pragma endregion
 
 Vector2 inputKeys;
@@ -96,7 +96,7 @@ void HandlePlayer() {
 	Vector2 intersectPoint[2] = { {-100,-100},{-100,-100} };
 	bool collided = false;
 	int collisionCount = 0;
-	for (auto& e : manager.entities) {
+	for (auto& e : Game::manager.entities) {
 		if (e->hasGroup(Game::groupMap) && e->isActive() == 1 && e->hasComponent<TransformComponent>()) {
 			Vector2 hitPoint = {
 				float(-(player.getComponent<TransformComponent>().width *	player.getComponent<TransformComponent>().scale)),

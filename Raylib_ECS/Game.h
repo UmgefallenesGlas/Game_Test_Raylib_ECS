@@ -2,6 +2,7 @@
 #include <raylib.h>
 
 #include "ECS/Components.h"
+#include "ECS/ECS.h"
 
 class Game
 {
@@ -13,7 +14,8 @@ public:
 	void Update();
 	void Draw();
 	//Need to add Unload()
-	//Declaration for Manager here. Also want to have a refrence to Manager for my Components
+
+	static Manager manager;
 	static Camera2D camera;
 
 	enum groupLabels : std::size_t {
