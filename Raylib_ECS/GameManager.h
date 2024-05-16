@@ -1,6 +1,8 @@
 #pragma once
 #include "ECS/Components.h"
 
+//I may delete this, it was just for testing
+
 /*
 class NeedsManager{
 public:
