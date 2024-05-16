@@ -59,7 +59,6 @@ public:
 	}
 
 	void draw() override {
-		Vector2 pos = { destRect.x, destRect.y };
 		DrawTexturePro(texture, srcRect, destRect, Vector2{ destRect.width / 2, destRect.height / 2 }, transform->rotation, WHITE);
 	}
 

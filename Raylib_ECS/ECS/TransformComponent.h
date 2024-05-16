@@ -49,7 +49,7 @@ public:
 		rotation = rot;
 	}
 
-	void init() {
+	void init() override {
 		rectangle = {
 		position.x - (width * scale) / 2,
 		position.y - (height * scale) / 2,

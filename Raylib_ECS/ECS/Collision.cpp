@@ -67,7 +67,7 @@ void Collision::PointNearestRectanglePoint(Rectangle rect, Vector2 point, Vector
     }
 }
 
-void Collision::PlayerCollision(Vector2 newPosOrigin)
+void Collision::PlayerCollision(Vector2)
 {
     std::cout << "hurensohn" << '\n';
     /*Vector2 intersectPoint[2] = {{-100,-100},{-100,-100}};

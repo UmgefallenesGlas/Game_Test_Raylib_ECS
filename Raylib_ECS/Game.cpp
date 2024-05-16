@@ -98,8 +98,10 @@ void HandlePlayer() {
 	int collisionCount = 0;
 	for (auto& e : manager.entities) {
 		if (e->hasGroup(Game::groupMap) && e->isActive() == 1 && e->hasComponent<TransformComponent>()) {
-			Vector2 hitPoint = { -(player.getComponent<TransformComponent>().width *
-				player.getComponent<TransformComponent>().scale), -(player.getComponent<TransformComponent>().height * player.getComponent<TransformComponent>().scale) };
+			Vector2 hitPoint = {
+				float(-(player.getComponent<TransformComponent>().width *	player.getComponent<TransformComponent>().scale)),
+				float(-(player.getComponent<TransformComponent>().height * player.getComponent<TransformComponent>().scale)),
+			};
 			Vector2 hitNormal = { 0,0 };
 			collision.PointNearestRectanglePoint(e->getComponent<TransformComponent>().rectangle, newPosOrigin, &hitPoint, &hitNormal);
 			Vector2 vectorToHit = Vector2{ hitPoint.x - newPosOrigin.x, hitPoint.y - newPosOrigin.y };
