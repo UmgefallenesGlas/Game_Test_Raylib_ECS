@@ -7,5 +7,5 @@ class Collision
 {
 public:
 	void PointNearestRectanglePoint(Rectangle rect, Vector2 point, Vector2* nearest, Vector2* normal);
-	void PlayerCollision(Vector2 newPosOrigin);
+	Vector2 PlayerCollision(Vector2 newPosOrigin, Entity& player);
 };

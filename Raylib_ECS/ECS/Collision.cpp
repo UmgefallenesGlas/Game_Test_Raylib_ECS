@@ -2,7 +2,7 @@
 #include <iostream>
 #include "../Game.h"
 
-//Todo: std::unique_prt fix
+//ToDo: Fix PlayerCollision; Current Problem: wrong outputs;
 
 void Collision::PointNearestRectanglePoint(Rectangle rect, Vector2 point, Vector2* nearest, Vector2* normal) {
     // get the closest point on the vertical sides
@@ -67,14 +67,17 @@ void Collision::PointNearestRectanglePoint(Rectangle rect, Vector2 point, Vector
     }
 }
 
-void Collision::PlayerCollision(Vector2)
+Vector2 Collision::PlayerCollision(Vector2 newPosOrigin, Entity& player)
 {
-    std::cout << "hurensohn" << '\n';
-    /*Vector2 intersectPoint[2] = {{-100,-100},{-100,-100}};
+    
+    Vector2 intersectPoint[2] = {{-100,-100},{-100,-100}};
     bool collided = false;
     int collisionCount = 0;
-    for (auto& e : manager.entities) {
+    for (auto& e : Game::manager.entities) {
         if (e->hasGroup(Game::groupMap) && e->isActive() == 1 && e->hasComponent<TransformComponent>()) {
+            
+            std::cout << player.getComponent<TransformComponent>().position.x << "|" << player.getComponent<TransformComponent>().position.x << '\n';
+
             Vector2 hitPoint = { -(player.getComponent<TransformComponent>().width *
                 player.getComponent<TransformComponent>().scale), -(player.getComponent<TransformComponent>().height * player.getComponent<TransformComponent>().scale) };
             Vector2 hitNormal = { 0,0 };
@@ -87,7 +90,6 @@ void Collision::PlayerCollision(Vector2)
             {
                 collided = true;
                 intersectPoint[collisionCount++] = hitPoint;
-
                 // normalize
                 vectorToHit = Vector2Normalize(vectorToHit);
 
@@ -107,5 +109,5 @@ void Collision::PlayerCollision(Vector2)
             }
         }
 
-    }*/
+    }
 }

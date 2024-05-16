@@ -9,12 +9,12 @@ Collision collision;
 Camera2D Game::camera;
 
 #pragma region Objects
-auto& coin1(Game::manager.addEntity());
-auto& coin2(Game::manager.addEntity());
-auto& coin3(Game::manager.addEntity());
-auto& coin4(Game::manager.addEntity());
+auto& coin1 = Game::manager.addEntity();
+auto& coin2 = Game::manager.addEntity();
+auto& coin3 = Game::manager.addEntity();
+auto& coin4 = Game::manager.addEntity();
 
-auto& player(Game::manager.addEntity());
+auto& player = Game::manager.addEntity();
 #pragma endregion
 
 Vector2 inputKeys;
@@ -93,6 +93,9 @@ void HandlePlayer() {
 	
 	//want to do that everything here is in collision -> PlayerCollision
 	
+	newPosOrigin = collision.PlayerCollision(newPosOrigin, player);
+	//std::cout << newPosOrigin.x << "|" << newPosOrigin.y << '\n';
+	/*
 	Vector2 intersectPoint[2] = { {-100,-100},{-100,-100} };
 	bool collided = false;
 	int collisionCount = 0;
@@ -133,7 +136,7 @@ void HandlePlayer() {
 		}
 
 	}
-
+	*/
 
 #pragma endregion
 	player.getComponent<TransformComponent>().position = newPosOrigin;
