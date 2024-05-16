@@ -90,7 +90,9 @@ void HandlePlayer() {
 
 
 	//collision.PlayerCollision(newPosOrigin);
-
+	
+	//want to do that everything here is in collision -> PlayerCollision
+	
 	Vector2 intersectPoint[2] = { {-100,-100},{-100,-100} };
 	bool collided = false;
 	int collisionCount = 0;
@@ -135,7 +137,7 @@ void HandlePlayer() {
 	player.getComponent<TransformComponent>().position = newPosOrigin;
 }
 
-Game::Game() { std::cout << "START!\n"; }
+Game::Game() { }
 
 Game::~Game() { }
 
