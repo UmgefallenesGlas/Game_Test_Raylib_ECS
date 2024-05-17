@@ -84,61 +84,9 @@ void HandlePlayer() {
 	}
 
 	newPosOrigin = Vector2Add(newPosOrigin, Vector2Scale(inputKeys, speed * GetFrameTime()));
-
-#pragma endregion
-	#pragma region Collision
-
-
-	//collision.PlayerCollision(newPosOrigin);
-	
-	//want to do that everything here is in collision -> PlayerCollision
-	
 	newPosOrigin = collision.PlayerCollision(newPosOrigin, player);
-	//std::cout << newPosOrigin.x << "|" << newPosOrigin.y << '\n';
-	/*
-	Vector2 intersectPoint[2] = { {-100,-100},{-100,-100} };
-	bool collided = false;
-	int collisionCount = 0;
-	for (auto& e : Game::manager.entities) {
-		if (e->hasGroup(Game::groupMap) && e->isActive() == 1 && e->hasComponent<TransformComponent>()) {
-			Vector2 hitPoint = {
-				float(-(player.getComponent<TransformComponent>().width *	player.getComponent<TransformComponent>().scale)),
-				float(-(player.getComponent<TransformComponent>().height * player.getComponent<TransformComponent>().scale)),
-			};
-			Vector2 hitNormal = { 0,0 };
-			collision.PointNearestRectanglePoint(e->getComponent<TransformComponent>().rectangle, newPosOrigin, &hitPoint, &hitNormal);
-			Vector2 vectorToHit = Vector2{ hitPoint.x - newPosOrigin.x, hitPoint.y - newPosOrigin.y };
-
-			bool inside = Vector2LengthSqr(vectorToHit) < player.getComponent<TransformComponent>().width * player.getComponent<TransformComponent>().width;
-
-			if (inside)
-			{
-				collided = true;
-				intersectPoint[collisionCount++] = hitPoint;
-
-				// normalize
-				vectorToHit = Vector2Normalize(vectorToHit);
-
-				// get point that is deepest into the rectangle
-				Vector2 projectedPoint = Vector2Add(newPosOrigin, Vector2Scale(vectorToHit, player.getComponent<TransformComponent>().width));
-
-				// shift it to nearest
-				Vector2 delta = { 0,0 };
-
-				if (hitNormal.x != 0)
-					delta.x = hitPoint.x - projectedPoint.x;
-				else
-					delta.y = hitPoint.y - projectedPoint.y;
-
-				// shift the new point by the delta to push us outside of the rectangle
-				newPosOrigin = Vector2Add(newPosOrigin, delta);
-			}
-		}
-
-	}
-	*/
-
 #pragma endregion
+
 	player.getComponent<TransformComponent>().position = newPosOrigin;
 }
 

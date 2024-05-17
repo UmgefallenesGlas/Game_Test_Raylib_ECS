@@ -2,8 +2,6 @@
 #include <iostream>
 #include "../Game.h"
 
-//ToDo: Fix PlayerCollision; Current Problem: wrong outputs;
-
 void Collision::PointNearestRectanglePoint(Rectangle rect, Vector2 point, Vector2* nearest, Vector2* normal) {
     // get the closest point on the vertical sides
     float hValue = rect.x;
@@ -69,20 +67,18 @@ void Collision::PointNearestRectanglePoint(Rectangle rect, Vector2 point, Vector
 
 Vector2 Collision::PlayerCollision(Vector2 newPosOrigin, Entity& player)
 {
-    
     Vector2 intersectPoint[2] = {{-100,-100},{-100,-100}};
+    Vector2 tempNewPosOrigin = newPosOrigin;
     bool collided = false;
     int collisionCount = 0;
     for (auto& e : Game::manager.entities) {
-        if (e->hasGroup(Game::groupMap) && e->isActive() == 1 && e->hasComponent<TransformComponent>()) {
+        if (e->hasGroup(Game::groupMap) && e->isActive() == 1) {
             
-            std::cout << player.getComponent<TransformComponent>().position.x << "|" << player.getComponent<TransformComponent>().position.x << '\n';
-
             Vector2 hitPoint = { -(player.getComponent<TransformComponent>().width *
                 player.getComponent<TransformComponent>().scale), -(player.getComponent<TransformComponent>().height * player.getComponent<TransformComponent>().scale) };
             Vector2 hitNormal = { 0,0 };
-            PointNearestRectanglePoint(e->getComponent<TransformComponent>().rectangle, newPosOrigin, &hitPoint, &hitNormal);
-            Vector2 vectorToHit = Vector2{ hitPoint.x - newPosOrigin.x, hitPoint.y - newPosOrigin.y };
+            PointNearestRectanglePoint(e->getComponent<TransformComponent>().rectangle, tempNewPosOrigin, &hitPoint, &hitNormal);
+            Vector2 vectorToHit = Vector2{ hitPoint.x - tempNewPosOrigin.x, hitPoint.y - tempNewPosOrigin.y };
 
             bool inside = Vector2LengthSqr(vectorToHit) < player.getComponent<TransformComponent>().width * player.getComponent<TransformComponent>().width;
 
@@ -94,8 +90,7 @@ Vector2 Collision::PlayerCollision(Vector2 newPosOrigin, Entity& player)
                 vectorToHit = Vector2Normalize(vectorToHit);
 
                 // get point that is deepest into the rectangle
-                Vector2 projectedPoint = Vector2Add(newPosOrigin, Vector2Scale(vectorToHit, player.getComponent<TransformComponent>().width));
-
+                Vector2 projectedPoint = Vector2Add(tempNewPosOrigin, Vector2Scale(vectorToHit, player.getComponent<TransformComponent>().width));
                 // shift it to nearest
                 Vector2 delta = { 0,0 };
 
@@ -105,8 +100,12 @@ Vector2 Collision::PlayerCollision(Vector2 newPosOrigin, Entity& player)
                     delta.y = hitPoint.y - projectedPoint.y;
 
                 // shift the new point by the delta to push us outside of the rectangle
-                return Vector2Add(newPosOrigin, delta);
+                return Vector2Add(tempNewPosOrigin, delta);
             }
+            }
+        else
+        {
+            return tempNewPosOrigin;
         }
 
     }
