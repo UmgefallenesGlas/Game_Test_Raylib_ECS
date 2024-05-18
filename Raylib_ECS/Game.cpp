@@ -1,19 +1,17 @@
 #include "Game.h"
-#include "GameManager.h"
 #include <raymath.h>
 #include "ECS/Collision.h"
 
 Manager Game::manager;
-
+Manager manager;
 Collision collision;
 Camera2D Game::camera;
 
 #pragma region Objects
-auto& coin1 = Game::manager.addEntity();
-auto& coin2 = Game::manager.addEntity();
-auto& coin3 = Game::manager.addEntity();
-auto& coin4 = Game::manager.addEntity();
-
+auto& wall1 = Game::manager.addEntity();
+auto& wall2 = Game::manager.addEntity();
+auto& wall3 = Game::manager.addEntity();
+auto& myEntity = manager.addEntity();
 auto& player = Game::manager.addEntity();
 #pragma endregion
 
@@ -84,39 +82,32 @@ void HandlePlayer() {
 	}
 
 	newPosOrigin = Vector2Add(newPosOrigin, Vector2Scale(inputKeys, speed * GetFrameTime()));
-	newPosOrigin = collision.PlayerCollision(newPosOrigin, player);
+	collision.MovingObjectCollision(&newPosOrigin, player);
 #pragma endregion
 
 	player.getComponent<TransformComponent>().position = newPosOrigin;
 }
 
-Game::Game() { }
-
-Game::~Game() { }
-
 void Game::Init(){
 	#pragma region Objects
-	coin1.addComponent<TransformComponent>(96, 128, 32, 32, 2, 0);
-	coin1.addComponent<SpriteComponent>("assets/water.png");
-	coin1.addGroup(groupMap);
 
-	coin2.addComponent<TransformComponent>(256, 128, 32, 32, 2, 0);
-	coin2.addComponent<SpriteComponent>("assets/dirt.png");
-	coin2.addGroup(groupMap);
+	wall1.addComponent<TransformComponent>(96, 128, 32, 32, 2, 0);
+	wall1.addComponent<SpriteComponent>("assets/water.png");
+	wall1.addGroup(groupMap);
 
-	coin3.addComponent<TransformComponent>(352-32, 128, 32, 32, 2, 0);
-	coin3.addComponent<SpriteComponent>("assets/grass.png");
-	coin3.addGroup(groupMap);
+	wall2.addComponent<TransformComponent>(288+1, 128, 96, 32, 2, 0);
+	wall2.addComponent<SpriteComponent>("assets/dirt.png");
+	wall2.addGroup(groupMap);
 
-	coin4.addComponent<TransformComponent>(480, 128, 32, 32, 2, 0);
-	coin4.addComponent<SpriteComponent>("assets/water.png");
-	coin4.addGroup(groupMap);
+	wall3.addComponent<TransformComponent>(256-32, 128+64, 32, 96, 2, 0);
+	wall3.addComponent<SpriteComponent>("assets/water.png");
+	wall3.addGroup(groupMap);
 
 
 	player.addComponent<TransformComponent>(300, 300, 32, 32, 2, 0);
 	player.addComponent<AnimatedSpriteComponent>("assets/Char_Main_file.png");
 	player.addGroup(groupPlayer);
-	//player.addGroup(groupColliders);
+
 #pragma endregion
 	#pragma region Animation
 	Animation idle_down = Animation(0, 1, 5);

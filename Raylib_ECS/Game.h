@@ -7,13 +7,9 @@
 class Game
 {
 public:
-	Game();//Doesnt need this, should i delete it?
-	~Game();//This too
-	
 	void Init();
 	void Update();
 	void Draw();
-	//Need to add Unload()
 
 	static Manager manager;
 	static Camera2D camera;
@@ -24,7 +20,4 @@ public:
 		groupEnemys,
 		groupColliders
 	};
-
-private:
-	
 };
